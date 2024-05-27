@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clients</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="clientsTable">
+        </tbody>
+    </table>
+
+    <script>
+        // Функция для загрузки данных
+        function loadClients() {
+            fetch('get_clients.php')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('clientsTable');
+                    data.forEach(client => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${client.id}</td>
+                            <td>${client.firstname}</td>
+                            <td>${client.lastname}</td>
+                            <td>${client.email}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Загружаем данные при загрузке страницы
+        window.onload = loadClients;
+    </script>
+</body>
+</html>

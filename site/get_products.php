@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "localhost:3306";
 $username = "root";
 $password = "furali2024";
 $dbname = "site";
@@ -13,15 +13,15 @@ if ($conn->connect_error) {
 }
 
 // SQL запрос для получения данных
-$sql = "SELECT id, firstname, lastname, email FROM clients";
+$sql = "SELECT idProducts, articleProducts, nameProducts, descriptionProducts, priceProducts, imageProducts FROM products";
 $result = $conn->query($sql);
 
-$clients = [];
+$products = [];
 
 if ($result->num_rows > 0) {
     // Вывод данных каждой строки
     while($row = $result->fetch_assoc()) {
-        $clients[] = $row;
+        $products[] = $row;
     }
 } else {
     echo "0 results";
@@ -29,5 +29,6 @@ if ($result->num_rows > 0) {
 $conn->close();
 
 // Преобразуем данные в формат JSON
-echo json_encode($clients);
+header('Content-Type: application/json');
+echo json_encode($products);
 ?>

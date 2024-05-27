@@ -17,9 +17,9 @@ function loadData() {
 
         div.innerHTML = `
         <article class="post-future">
-            <a class="post-future-figure" href="#"><img src="${products.imageProducts}" alt="" width="368" height="287"/></a>
+            <a class="post-future-figure"><img src="${products.imageProducts}" alt="" width="368" height="287"/></a>
             <div class="post-future-main">
-                <h4 class="post-future-title"><a href="#">${products.nameProducts}</a></h4>
+                <h4 class="post-future-title"><a>${products.nameProducts}</a></h4>
                 <div class="post-future-meta">
                     <div class="badge badge-secondary">${products.priceProducts}</div>
                 </div>

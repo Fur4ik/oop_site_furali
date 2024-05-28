@@ -5695,7 +5695,7 @@ textarea.form-input {
 	text-align: center;
 	margin-left: auto;
   	margin-right: auto;
-	font-size: 50px;
+	font-size: 40px;
 }
 
 .glav {
@@ -5704,7 +5704,7 @@ textarea.form-input {
 	text-align: center;
 	margin-left: auto;
   	margin-right: auto;
-	font-size: 200px;
+	font-size: 150px;
 }
 
 .shop-do-glav {
@@ -5713,7 +5713,7 @@ textarea.form-input {
 	text-align: center;
 	margin-left: auto;
   	margin-right: auto;
-	font-size: 50px;
+	font-size: 30px;
 }
 
 .shop-glav {
@@ -5722,7 +5722,7 @@ textarea.form-input {
 	text-align: center;
 	margin-left: auto;
   	margin-right: auto;
-	font-size: 100px;
+	font-size: 80px;
 }
 
 .under-glav {
@@ -5731,7 +5731,7 @@ textarea.form-input {
 	text-align: center;
 	margin-left: auto;
   	margin-right: auto;
-	font-size: 30px;
+	font-size: 25px;
 }
 
 .post-gloria-meta {
@@ -8940,11 +8940,11 @@ a.product-button:hover {
 * Footers
 */
 .footer-classic.context-dark, .footer-classic.rd-navbar-dark, .footer-classic.rd-navbar-darker {
-	color: #707279;
+	color: #cfcfcf;
 }
 
 .footer-classic.context-dark h6, .footer-classic.rd-navbar-dark h6, .footer-classic.rd-navbar-darker h6 {
-	color: #707279;
+	color: #cfcfcf;
 }
 
 .footer-classic.context-dark .link, .footer-classic.rd-navbar-dark .link, .footer-classic.rd-navbar-darker .link, .footer-classic.context-dark .link:focus, .footer-classic.rd-navbar-dark .link:focus, .footer-classic.rd-navbar-darker .link:focus, .footer-classic.context-dark .link:active, .footer-classic.rd-navbar-dark .link:active, .footer-classic.rd-navbar-darker .link:active {
@@ -13073,7 +13073,7 @@ span.page-link:hover, span.page-link:focus, span.page-link:active {
 	font-weight: 500;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
-	color: #707279;
+	color: #cfcfcf;
 }
 
 .nav-minimal-list:empty {
@@ -13788,7 +13788,7 @@ html [class*='section-'].section-bottom-0 {
 		padding: 85px 0;
 	}
 	.section-variant-1 {
-		padding: 60px 0 80px;
+		padding: 100px 0 80px;
 	}
 }
 
@@ -14248,7 +14248,6 @@ p.rights a:hover {
 .layout-justify {
 	margin-bottom: -20px;
 	margin-left: -20px;
-	text-align: center;
 }
 
 .layout-justify:empty {
@@ -17208,7 +17207,7 @@ html.rd-navbar-fixed-linked .page {
 }
 
 .rd-navbar-classic.rd-navbar-static .rd-navbar-main-bottom {
-	padding: 20px 0;
+	padding: 5px 0;
 }
 
 .rd-navbar-classic.rd-navbar-static .rd-navbar-main-container {

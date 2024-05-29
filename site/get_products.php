@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // SQL запрос для получения данных
-$sql = "SELECT idProducts, articleProducts, nameProducts, descriptionProducts, priceProducts, imageProducts FROM products";
+$sql = "SELECT idProducts, articleProducts, nameProducts, descriptionProducts, priceProducts, imageProducts, tocartProducts FROM products";
 $result = $conn->query($sql);
 
 $products = [];

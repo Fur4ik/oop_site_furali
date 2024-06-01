@@ -12,15 +12,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Проверяем соединение
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Ошибка соединения: " . $conn->connect_error);
 }
 
 // Получаем данные из формы
-$login = $_POST['login'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$repeat_password = $_POST['repeat_password'];
+$login = $_POST['login'] ?? '';
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+$repeat_password = $_POST['repeat_password'] ?? '';
 
+// Проверка на пустые поля
 if (empty($login) || empty($email) || empty($password) || empty($repeat_password)) {
     die("Ошибка: Все поля должны быть заполнены.");
 }
@@ -55,10 +56,23 @@ if ($sql->num_rows > 0) {
 $sql = $conn->prepare("INSERT INTO users (loginUsers, passwordUsers, emailUsers) VALUES (?, ?, ?)");
 $sql->bind_param("sss", $login, $hashed_password, $email);
 if ($sql->execute()) {
-    echo "Регистрация прошла успешно!";
+    $newUserId = $conn->insert_id;
+    $newTableName =$newUserId. "Cart";
+    $createTableSql = "CREATE TABLE $newTableName(
+        idProd INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        articleProd VARCHAR(100) NOT NULL,
+        countProd INT(6) NOT NULL
+    )";
+    
+    if ($conn->query($createTableSql) === TRUE) {
+        echo "Новая таблица успешно создана.";
+    } else {
+        echo "Ошибка при создании новой таблицы: " . $conn->error;
+    }
 } else {
     echo "Ошибка: " . $sql->error;
 }
+
 
 $sql->close();
 $conn->close();

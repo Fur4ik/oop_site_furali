@@ -13,15 +13,15 @@ if ($conn->connect_error) {
 }
 
 // SQL запрос для получения данных
-$sql = "SELECT idPhoneprod, articlePhoneprod, namePhoneprod, descriptionPhoneprod, pricePhoneprod, imagePhoneprod, tocartPhoneprod FROM phoneprod";
+$sql = "SELECT idUsers, loginUsers, emailUsers FROM users";
 $result = $conn->query($sql);
 
-$phoneprod = [];
+$clients = [];
 
 if ($result->num_rows > 0) {
     // Вывод данных каждой строки
     while($row = $result->fetch_assoc()) {
-        $phoneprod[] = $row;
+        $clients[] = $row;
     }
 } else {
     echo "0 results";
@@ -30,7 +30,5 @@ $conn->close();
 
 // Преобразуем данные в формат JSON
 header('Content-Type: application/json');
-echo json_encode($phoneprod);
+echo json_encode($clients);
 ?>
-
-

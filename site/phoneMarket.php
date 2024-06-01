@@ -1,3 +1,9 @@
+<?php
+session_start();
+$login = isset($_SESSION['login']) ? $_SESSION['login'] : 'Мой аккаунт';
+$count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
+?>
+
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
@@ -34,65 +40,31 @@
               <div class="rd-navbar-main-container container">
                 <!-- Navbar -->
                                   <ul class="rd-navbar-nav">
-                                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html">Главная</a>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php">Главная</a>
                                     </li>
-                                    <li class="rd-nav-item"><a class="rd-nav-link" href="carDealership.html">Автомобильный салон</a>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="carDealership.php">Автомобильный салон</a>
                                     </li>
-                                    <li class="rd-nav-item active"><a class="rd-nav-link" href="phoneMarket.html">Рынок телефонов</a>
+                                    <li class="rd-nav-item active"><a class="rd-nav-link" href="phoneMarket.php">Рынок телефонов</a>
                                     </li>
                                     
                                   </ul>
                                   <div class="rd-navbar-panel-item rd-navbar-panel-item-right">
                                     <ul class="list-inline list-inline-bordered">
-                                      <li>
-                                        <div class="cart-inline-toggled-outer">
-                                          <!-- Link Cart-->
-                                          <button class="link link-cart cart-inline-toggle" data-rd-navbar-toggle="#cart-inline"><span class="link-cart-icon fl-bigmug-line-shopping202"></span><span class="link-cart-counter">2</span></button>
-                                          <!-- Cart Inline-->
-                                          <article class="cart-inline cart-inline-toggled" id="cart-inline">
-                                            <div class="cart-inline-inner">
-                                              <div class="cart-inline-header">
-                                                <h5 class="cart-inline-title">In cart: 2 products</h5>
-                                                <p class="cart-inline-subtitle">total price: $750</p>
-                                              </div>
-                                              <div class="cart-inline-main">
-                                                      <!-- Product inline-->
-                                                      <article class="product-inline">
-                                                        <div class="product-inline-aside"><a class="product-inline-figure" href="#"><img class="product-inline-image" src="images/product-Nike-Air-Zoom-Pegasus-67x30.png" alt="" width="67" height="30"/></a></div>
-                                                        <div class="product-inline-main">
-                                                          <p class="heading-7 product-inline-title"><a href="#">Nike Air Zoom Pegasus</a></p>
-                                                          <ul class="product-inline-meta">
-                                                            <li>
-                                                              <input class="form-input" type="number" data-zeros="true" value="2" min="1" max="100">
-                                                            </li>
-                                                            <li>
-                                                              <p class="product-inline-price">$500.00</p>
-                                                            </li>
-                                                          </ul>
-                                                        </div>
-                                                      </article>
-                                                      <!-- Product inline-->
-                                                      <article class="product-inline">
-                                                        <div class="product-inline-aside"><a class="product-inline-figure" href="#"><img class="product-inline-image" src="images/product-Nike-Baseball-Hat-55x38.png" alt="" width="55" height="38"/></a></div>
-                                                        <div class="product-inline-main">
-                                                          <p class="heading-7 product-inline-title"><a href="#">Nike Baseball Hat</a></p>
-                                                          <ul class="product-inline-meta">
-                                                            <li>
-                                                              <input class="form-input" type="number" data-zeros="true" value="1" min="1" max="100">
-                                                            </li>
-                                                            <li>
-                                                              <p class="product-inline-price">$250.00</p>
-                                                            </li>
-                                                          </ul>
-                                                        </div>
-                                                      </article>
-                                              </div>
-                                              <div class="cart-inline-footer"><a class="button button-md button-default-outline" href="#">Go to Cart</a><a class="button button-md button-primary" href="#">Checkout</a></div>
-                                            </div>
-                                          </article>
+                                    <li>
+                                    <div class="cart-inline-toggled-outer">
+                                          <a href="cart.php"><button class="link link-cart toggle-original" data-rd-navbar-toggle="#cart-inline"><span class="link-cart-icon fl-bigmug-line-shopping202"></span><span class="link-cart-counter"><?php echo $count; ?></span></button></a>
                                         </div>
                                       </li>
-                                      <li><a class="link link-icon link-icon-left link-classic" href="logReg.html"><span class="icon fl-bigmug-line-login12"></span><span class="link-icon-text">Ваш аккаунт</span></a></li>
+                                        <a class="link link-icon link-icon-left link-classic"  href="#" id="loginLink" style="color:#35ad79"><span class="icon fl-bigmug-line-login12"></span><span class="link-icon-text"><?php echo $login; ?></span></a>
+                                        <div id="logoutModal" class="modalAkk">
+                                          <div class="modal-contentAkk">
+                                            <span class="closeAkk">&times;</span>
+                                            <p class="heading-component-title" style="color:#000000">Выйти?</p>
+                                            <button class="button button-xs" id="confirmLogout">Да</button>
+                                            <button class="button button-xs" id="cancelLogout">Нет</button>
+                                          </div>
+                                        </div>
+                                      </li>         
                                     </ul>
                                   </div>
               </div>
@@ -153,5 +125,6 @@
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/loadPhoneprod.js"></script>
+    <script src="akk.js"></script>
   </body>
 </html>

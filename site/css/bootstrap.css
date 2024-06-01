@@ -4648,7 +4648,7 @@ a.badge:hover, a.badge:focus {
 	border-bottom-width: 0;
 }
 
-.close {
+.close, .closeEnter, .closeAkk {
 	float: right;
 	font-size: 1.5rem;
 	font-weight: 700;
@@ -4658,7 +4658,7 @@ a.badge:hover, a.badge:focus {
 	opacity: .5;
 }
 
-.close:hover {
+.close:hover, .closeEnter:hover, .closeAkk:hover {
 	color: #000;
 	text-decoration: none;
 }
@@ -4726,7 +4726,7 @@ a.close.disabled {
 	overflow: hidden;
 }
 
-.modal-open .modal {
+.modal-open .modal, .modalEnter, .modalAkk {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -4774,7 +4774,7 @@ a.close.disabled {
 	max-height: calc(100% - 1rem);
 }
 
-.modal-dialog-scrollable .modal-content {
+.modal-dialog-scrollable .modal-content, .modal-contentEnter, .modal-contentAkk {
 	max-height: calc(100vh - 1rem);
 	overflow: hidden;
 }
@@ -4806,7 +4806,8 @@ a.close.disabled {
 	height: 100%;
 }
 
-.modal-dialog-centered.modal-dialog-scrollable .modal-content {
+.modal-dialog-centered.modal-dialog-scrollable .modal-content, 
+.modal-contentEnter, .modal-contentAkk {
 	max-height: none;
 }
 
@@ -4814,7 +4815,7 @@ a.close.disabled {
 	content: none;
 }
 
-.modal-content {
+.modal-content, .modal-contentEnter, .modal-contentAkk {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -4902,7 +4903,8 @@ a.close.disabled {
 	.modal-dialog-scrollable {
 		max-height: calc(100% - 3.5rem);
 	}
-	.modal-dialog-scrollable .modal-content {
+	.modal-dialog-scrollable .modal-content, 
+	.modal-contentEnter, .modal-contentAkk {
 		max-height: calc(100vh - 3.5rem);
 	}
 	.modal-dialog-centered {

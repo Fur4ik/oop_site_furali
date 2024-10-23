@@ -36,7 +36,7 @@ function loadCart() {
                         </div>
                     </td>
                     <td>
-                        <div class="product-cart-price"><span>${product.priceProducts * product.countProd} ₽</span></div>
+                        <div class="product-cart-price"><span>${numberWithSpaces(product.priceProducts * product.countProd)} ₽</span></div>
                     </td>
                     <td>
                         <div class="product-cart-delete"><span class="icon fl-bigmug-line-recycling10" onclick="deleteFromCart(${product.idProd})"></span></div>
@@ -85,7 +85,7 @@ function loadCart() {
                         </div>
                     </td>
                     <td>
-                        <div class="product-cart-price"><span>${product.pricePhoneprod * product.countProd} ₽</span></div>
+                        <div class="product-cart-price"><span>${numberWithSpaces(product.pricePhoneprod * product.countProd)} ₽</span></div>
                     </td>
                     <td>
                         <div class="product-cart-delete"><span class="icon fl-bigmug-line-recycling10" onclick="deleteFromCart(${product.idProd})"></span></div>
@@ -118,10 +118,10 @@ function loadCart() {
             div.innerHTML = `
                 <span>Общая стоимость</span>
                 <span class="product-cart-total-price">
-                    <span>${data.cart_summ}</span>
+                    <span>${numberWithSpaces(data.cart_summ)}</span>
                     <span>₽</span>
                 </span>
-                <a class="button button-lg button-primary" href="#">Оформить заказ</a>
+                <a class="button button-lg button-primary" onclick="order()">Оформить заказ</a>
             `;
             categoriesContainer.appendChild(div);
         })
@@ -158,6 +158,79 @@ function loadCart() {
 
 }
 
+function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+function order() {
+    // Сбор всех ID товаров из таблицы
+    fetch('js/get_all_id.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data.success) {
+                throw new Error('Ошибка загрузки корзины: ' + data.message);
+            }
+
+            // Проверка на пустую корзину
+            if (data.idProds.length === 0) {
+                toastr.error('Корзина пуста.');
+                return;
+            }
+
+
+            // Получение всех ID товаров
+            const productIds = data.idProds;
+
+            // Передача всех ID товаров в функцию deleteCart
+            deleteCart(productIds);
+        })
+        .catch(error => console.error('Error loading cart data:', error));
+}
+
+// Функция для очистки корзины при оформлении заказа
+function deleteCart(productIds) {
+    let deletePromises = productIds.map(productId => {
+        return fetch('js/delete_from_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ idProd: productId })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data.success) {
+                throw new Error('Ошибка при удалении товара: ' + data.message);
+            } else {
+                // Успешно удаленный товар, удаляем строку из таблицы
+                const rowToDelete = document.querySelector(`tr[data-product-id="${productId}"]`);
+                if (rowToDelete) {
+                    rowToDelete.remove();
+                }
+            }
+        })
+        .catch(error => console.error('Error deleting from cart:', error));
+    });
+
+    Promise.all(deletePromises)
+        .then(() => {
+            toastr.success('Заказ успешно оформлен!');
+            loadCart(); // Перезагружаем корзину
+        })
+        .catch(error => toastr.error('Ошибка при оформлении заказа: ' + error.message));
+}
+
+
 // Функция для обновления количества товара в корзине
 function updateCart(productId, newCount) {
     fetch('js/update_cart.php', {
@@ -177,7 +250,7 @@ function updateCart(productId, newCount) {
     })
     .then(data => {
         if (!data.success) {
-            alert('Ошибка при обновлении корзины: ' + data.message);
+            toastr.error('Ошибка при обновлении корзины: ' + data.message);
         } else {
             loadCart(); // Перезагружаем корзину
         }
@@ -203,7 +276,7 @@ function deleteFromCart(productId) {
     })
     .then(data => {
         if (!data.success) {
-            alert('Ошибка при удалении товара из корзины: ' + data.message);
+            toastr.error('Ошибка при удалении товара из корзины: ' + data.message);
         } else {
             loadCart(); // Перезагружаем корзину
             // Успешно удаленный товар, удаляем строку из таблицы
@@ -230,9 +303,5 @@ function decrementValue(productId) {
     updateCart(productId, input.value); // Вызываем функцию обновления корзины
 }
 
-
-
 // Загружаем данные при загрузке страницы
 window.onload = loadCart;
-
-

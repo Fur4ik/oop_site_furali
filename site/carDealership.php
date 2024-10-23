@@ -20,7 +20,8 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
   </head>
   <body>
     <div class="preloader">
@@ -92,9 +93,13 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                 <!-- Heading Component-->
                 <article class="heading-component">
                   <div class="heading-component-inner">
-                    <h5 class="heading-component-title">Популярные предложения
-                    </h5><a class="button button-xs button-gray-outline" href="#">Все предложения</a>
+                    <h5 class="heading-component-title">Популярные предложения</h5>
+                    <a><input class="button button-xs button-gray-outline" type="text" id="searchInput" placeholder="Поиск по названию" onkeyup="filterProducts()"></a>
                   </div>
+
+                  <!-- <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Поиск по названию" onkeyup="filterProducts()">
+                  </div> -->
                 </article>
                 <div class="row row-30"> <!-- тут наши товары --></div>
               </div>
@@ -127,5 +132,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
     <script src="js/script.js"></script>
     <script src="js/loadData.js"></script>
     <script src="akk.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="js/toastr_settings.js"></script>
   </body>
 </html>

@@ -1,6 +1,5 @@
 // Функция для загрузки данных
 function loadData() {
-    // Загрузка данных о продуктах
     fetch('js/get_products.php')
         .then(response => {
             if (!response.ok) {
@@ -10,25 +9,26 @@ function loadData() {
         })
         .then(data => {
             resCount();
-            const productsContainer = document.querySelector('.row-30'); // выбираем контейнер для продуктов на вашем сайте
-            data.forEach(products => {
+            const productsContainer = document.querySelector('.row-30');
+            productsContainer.innerHTML = ''; // Очистка контейнера перед добавлением новых данных
+            data.forEach(product => {
                 const div = document.createElement('div');
                 div.classList.add('col-md-6');
 
                 div.innerHTML = `
                 <article class="post-future">
-                    <a class="post-future-figure"><img src="${products.imageProducts}" alt="" width="368" height="287"/></a>
+                    <a class="post-future-figure"><img src="${product.imageProducts}" alt="" width="368" height="287"/></a>
                     <div class="post-future-main">
-                        <h4 class="post-future-title"><a>${products.nameProducts}</a></h4>
+                        <h4 class="post-future-title"><a>${product.nameProducts}</a></h4>
                         <div class="post-future-meta">
-                            <div class="badge badge-secondary">${products.priceProducts}₽</div>
+                            <div class="badge badge-secondary">${numberWithSpaces(product.priceProducts)} ₽</div>
                         </div>
                         <hr/>
                         <div class="post-future-text">
-                            <p>${products.descriptionProducts}</p>
+                            <p>${product.descriptionProducts}</p>
                         </div>
                         <div class="post-future-footer group-flex group-flex-xs">
-                            <button class="button button-gray-outline" onclick="addToCart('${products.articleProducts}')">В корзину</button>
+                            <button class="button button-gray-outline" onclick="addToCart('${product.articleProducts}')">В корзину</button>
                         </div>
                     </div>
                 </article>
@@ -38,6 +38,11 @@ function loadData() {
         })
         .catch(error => console.error('Error loading products:', error));
 }
+
+
+function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
 
 function resCount(){
     fetch('js/update_cart_count.php')
@@ -87,13 +92,29 @@ function addToCart(articleProducts) {
     .then(data => {
         if (data.success) {
             resCount();
-            alert('Продукт добавлен в корзину');
+            toastr.success('Товар добавлен в корзину');
         } else {
-            alert('Ошибка при добавлении продукта в корзину');
+            toastr.error('Не выполнен вход в аккаунт');
+            // toastr.error('Ошибка при добавлении продукта в корзину');
         }
     })
-    .catch(error => console.error('Error adding product to cart:', error));
+    .catch(error => console.error('Error adding product to cart: ' + error));
 }
+
+function filterProducts() {
+    const searchValue = document.getElementById('searchInput').value.toLowerCase();
+    const products = document.querySelectorAll('.post-future');
+    
+    products.forEach(product => {
+        const productName = product.querySelector('.post-future-title a').innerText.toLowerCase();
+        if (productName.includes(searchValue)) {
+            product.parentElement.style.display = 'block';
+        } else {
+            product.parentElement.style.display = 'none';
+        }
+    });
+}
+
 
 // Загружаем данные при загрузке страницы
 window.onload = loadData;

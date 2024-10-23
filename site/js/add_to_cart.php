@@ -91,7 +91,7 @@ if ($sql->execute()) {
     // Обновляем количество товаров в сессии
     $_SESSION['cart_count'] = $cartCount;
     
-    echo json_encode(['success' => true, 'message' => 'Продукт добавлен в корзину', 'cart_count' => $_SESSION['cart_count']]);
+    echo json_encode(['success' => true, 'message' => 'Товар добавлен в корзину', 'cart_count' => $_SESSION['cart_count']]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Ошибка: ' . $sql->error]);
 }

@@ -17,6 +17,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <body>
     <div class="preloader loaded">
       <div class="preloader-body">
@@ -88,36 +89,30 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
 
 
                 <div class="card-form card-form-login">
-                  <form class="rd-form rd-mailform" novalidate="novalidate" method="post" action="enter.php" id="enterForm"> 
-                    <div class="form-wrap">
-                      <label class="form-label rd-input-label" for="elogin">Login</label>
-                      <input class="form-input form-control-has-validation form-control-last-child" id="elogin" type="text" name="login" required><span class="form-validation"></span>
-                    </div>
-                    <div class="form-wrap">
-                      <label class="form-label rd-input-label" for="epassword">Password</label>
-                      <input class="form-input form-control-has-validation form-control-last-child" id="epassword" type="password" name="password" required><span class="form-validation"></span>
-                    </div>
-                    <button class="button button-lg button-primary button-block" type="submit">Войти</button>
-                  </form>
+    <form class="rd-form rd-mailform" novalidate="novalidate" id="enterForm">
+        <div class="form-wrap">
+            <label class="form-label rd-input-label" for="elogin">Login</label>
+            <input class="form-input form-control-has-validation form-control-last-child" id="elogin" type="text" name="login" required>
+            <span class="form-validation"></span>
+        </div>
+        <div class="form-wrap">
+            <label class="form-label rd-input-label" for="epassword">Password</label>
+            <input class="form-input form-control-has-validation form-control-last-child" id="epassword" type="password" name="password" required>
+            <span class="form-validation"></span>
+        </div>
+        <button class="button button-lg button-primary button-block" type="submit">Войти</button>
+    </form>
 
-                  <div id="errorModalEnter" class="modalEnter">
-                    <div class="modal-contentEnter">
-                      <span class="closeEnter">&times;</span>
-                      <p id="errorMessageEnter"></p>
-                    </div>
-                  </div>
-
-                  <div class="group-sm group-sm-justify group-middle">
-                    <a class="button button-telegram button-icon button-icon-left button-round" href="#"><span class="icon fa fa-telegram"></span><span>Telegram</span></a>
-                    <a class="button button-vk button-icon button-icon-left button-round" href="#"><span class="icon fa fa-vk"></span><span>Vk</span></a>
-                  </div>
-                </div>
+    <div class="group-sm group-sm-justify group-middle">
+        <a class="button button-telegram button-icon button-icon-left button-round" href="#"><span class="icon fa fa-telegram"></span><span>Telegram</span></a>
+        <a class="button button-vk button-icon button-icon-left button-round" href="#"><span class="icon fa fa-vk"></span><span>Vk</span></a>
+    </div>
+</div>
 
 
 
-
-                <div class="card-form card-form-register">
-                  <form id="registerForm" class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="js/register.php" novalidate="novalidate">
+<div class="card-form card-form-register">
+                  <form id="registerForm" class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post"  novalidate="novalidate">
                     <div class="form-wrap">
                       <label class="form-label rd-input-label" for="email">E-mail</label>
                       <input class="form-input form-control-has-validation form-control-last-child" id="email" type="email" name="email" required>
@@ -140,20 +135,13 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                     </div>
                     <button class="button button-lg button-primary button-block" type="submit">Создать аккаунт</button>
                   </form>
-
-                  <div id="errorModal" class="modal">
-                    <div class="modal-content">
-                      <span class="close">&times;</span>
-                      <p id="errorMessage"></p>
-                    </div>
-                  </div>
-
                   <div class="group-sm group-sm-justify group-middle">
                     <a class="button button-telegram button-icon button-icon-left button-round" href="#"><span class="icon fa fa-telegram"></span><span>Telegram</span></a>
                     <a class="button button-vk button-icon button-icon-left button-round" href="#"><span class="icon fa fa-vk"></span><span>Vk</span></a>
                   </div>
                 </div>
                 
+
                 
 
               </div>
@@ -180,12 +168,81 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
         </div>
       </footer>
     </div>
-    <!-- Javascript-->
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/windreg.js"></script>
-    <script src="windlog.js"></script>
-    <script src="akk.js"></script>
 
+    
+
+    <!-- Javascript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="js/core.min.js"></script>
+<script src="js/script.js"></script>
+<!-- <script src="js/windreg.js"></script> -->
+<!-- <script src="windlog.js"></script> -->
+<script src="akk.js"></script>
+<script src="js/toastr_settings.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#enterForm').on('submit', function(e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение формы
+        var formData = $(this).serialize(); // Сериализуем данные формы
+        
+        console.log("Form data: ", formData); // Отладочное сообщение
+
+        $.ajax({
+            url: 'enter.php',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                console.log("Response: ", response); // Отладочное сообщение
+                if (response.status === 'error') {
+                    toastr.error(response.message);
+                } else if (response.status === 'success') {
+                    toastr.success(response.message);
+                    // Перенаправляем на index.php после успешного входа
+                    window.location.href = 'index.php';
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                toastr.error('Произошла ошибка при отправке данных.');
+                console.error("AJAX Error: ", textStatus, errorThrown); // Отладочное сообщение
+            }
+        });
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#registerForm').submit(function(event) {
+            event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+            $.ajax({
+                url: 'js/register.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                console.log("Response: ", response); // Отладочное сообщение
+                if (response.type === 'error') {
+                    toastr.error(response.message);
+                } else if (response.type === 'success') {
+                    toastr.success(response.message);
+                    var form = document.getElementById('registerForm');
+                    form.reset();
+                    document.querySelector(".card-toggle").click();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                toastr.error('Произошла ошибка при отправке данных.');
+                console.error("AJAX Error: ", textStatus, errorThrown); // Отладочное сообщение
+            }
+                
+            });
+        });
+    });
+</script>
   </body>
 </html>

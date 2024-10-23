@@ -20,6 +20,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   </head>
   <body>
     <div class="preloader">
@@ -94,7 +95,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                 <article class="heading-component">
                   <div class="heading-component-inner">
                     <h5 class="heading-component-title">Популярные объявления
-                    </h5><a class="button button-xs button-gray-outline" href="#">Все объявления</a>
+                    </h5><a class="button button-xs button-gray-outline" onclick="ads()">Все объявления</a>
                   </div>
                 </article>
                 <div class="row row-30"> <!-- все наши категории -->
@@ -131,8 +132,8 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                   <!-- Heading Component-->
                   <article class="heading-component">
                     <div class="heading-component-inner">
-                      <h5 class="heading-component-title">События
-                      </h5><a class="button button-xs button-gray-outline" href="#">Все новости</a>
+                      <h5 class="heading-component-title">События</h5>
+                      <a class="button button-xs button-gray-outline" onclick="news()">Все события</a>
                     </div>
                   </article>
                   <!-- List Post Classic-->
@@ -221,7 +222,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                                 <li class="product-share-item"><a class="icon fa fa-vk" href="#"></a></li>
                               </ul>
                             </div>
-                            <a class="product-button fl-bigmug-line-shopping202" href="#" style="font-size: 26px"></a>
+                            <a class="product-button fl-bigmug-line-shopping202" href="carDealership.php" style="font-size: 26px"></a>
                           </div>
                         </header>
                         <footer class="product-content">
@@ -249,7 +250,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                                 <li class="product-share-item"><a class="icon fa fa-telegram" href="#"></a></li>
                                 <li class="product-share-item"><a class="icon fa fa-vk" href="#"></a></li>
                               </ul>
-                            </div><a class="product-button fl-bigmug-line-shopping202" href="#" style="font-size: 26px"></a>
+                            </div><a class="product-button fl-bigmug-line-shopping202" href="phoneMarket.php" style="font-size: 26px"></a>
                           </div>
                         </header>
                         <footer class="product-content">
@@ -274,7 +275,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
                                 <li class="product-share-item"><a class="icon fa fa-telegram" href="#"></a></li>
                                 <li class="product-share-item"><a class="icon fa fa-vk" href="#"></a></li>
                               </ul>
-                            </div><a class="product-button fl-bigmug-line-shopping202" href="#" style="font-size: 26px"></a>
+                            </div><a class="product-button fl-bigmug-line-shopping202" href="carDealership.php" style="font-size: 26px"></a>
                           </div>
                         </header>
                         <footer class="product-content">
@@ -311,10 +312,19 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
       </footer>
     </div>
     <!-- Javascript-->
+    <script>
+      function ads(){
+        toastr.success('Показыны все объявления');
+      }
+      function news(){
+        toastr.success('Показыны все события');
+      }
+    </script>
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/loadCategories.js"></script>
     <script src="akk.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="js/toastr_settings.js"></script>
   </body>
 </html>

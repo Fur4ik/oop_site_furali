@@ -16,7 +16,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <body>
     <div class="preloader loaded">
       <div class="preloader-body">
@@ -123,5 +123,7 @@ $count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : '';
     <script src="js/script.js"></script>
     <script src="akk.js"></script>
     <script src="loadCart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="js/toastr_settings.js"></script>
   </body>
 </html>

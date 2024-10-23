@@ -11,6 +11,7 @@ function loadPhoneprod() {
         .then(data => {
             resCount();
     const productsContainer = document.querySelector('.row-30'); // выбираем контейнер для продуктов на вашем сайте
+    productsContainer.innerHTML = ''; // Очистка контейнера перед добавлением новых данных
     data.forEach(phoneprod => {
 
         const div = document.createElement('div');
@@ -22,7 +23,7 @@ function loadPhoneprod() {
             <div class="post-future-main">
                 <h4 class="post-future-title"><a>${phoneprod.namePhoneprod}</a></h4>
                 <div class="post-future-meta">
-                    <div class="badge badge-secondary">${phoneprod.pricePhoneprod}₽</div>
+                    <div class="badge badge-secondary">${numberWithSpaces(phoneprod.pricePhoneprod)} ₽</div>
                 </div>
                 <hr/>
                 <div class="post-future-text">
@@ -41,6 +42,9 @@ function loadPhoneprod() {
 
 }
 
+function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
 
 function resCount(){
     fetch('js/update_cart_count.php')
@@ -89,13 +93,28 @@ function addToCart(articleProducts) {
     })
     .then(data => {
         if (data.success) {
-            alert('Продукт добавлен в корзину');
+            toastr.success('Товар добавлен в корзину');
             resCount();
         } else {
-            alert('Ошибка при добавлении продукта в корзину');
+            toastr.error('Не выполнен вход в аккаунт');
+            // toastr.error('Ошибка при добавлении продукта в корзину');
         }
     })
     .catch(error => console.error('Error adding product to cart:', error));
+}
+
+function filterProducts() {
+    const searchValue = document.getElementById('searchInput').value.toLowerCase();
+    const products = document.querySelectorAll('.post-future');
+    
+    products.forEach(product => {
+        const productName = product.querySelector('.post-future-title a').innerText.toLowerCase();
+        if (productName.includes(searchValue)) {
+            product.parentElement.style.display = 'block';
+        } else {
+            product.parentElement.style.display = 'none';
+        }
+    });
 }
 
 // Загружаем данные при загрузке страницы

@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     modal.style.display = "block";
                 } else {
                     // Перенаправить на страницу логина и регистрации
-                    window.location.href = 'logReg.php'; // Измените путь на относительный
+                    window.location.href = 'logReg.php'; 
                 }
             })
             .catch(error => {
